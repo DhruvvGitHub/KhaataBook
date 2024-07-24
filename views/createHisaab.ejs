@@ -1,0 +1,46 @@
+<%- include('./partials/header.ejs') %>
+
+<div class="w-[100vw] h-[90vh] bg-zinc-800 p-8 flex flex-col items-center justify-center">
+    <% if (error && error.length > 0) { %>
+        <div class="text-red-500 text-lg ml-8">
+            <% error.forEach(function(err) { %>
+                <p><%= err %></p>
+            <% }) %>
+        </div>
+    <% } %>
+    <h1 class="text-3xl text-white font-md mb-6">Create New Hisaab</h1>
+    <form action="/hisaab/create" method="post" autocomplete="off">
+        <div class="mb-8 w-[30vw]">
+            <input type="text" placeholder="Title" name="title" class="w-full h-[4vw] text-xl px-4 py-2 border rounded">
+        </div>
+        <div class="mb-8 w-[30vw]">
+            <input placeholder="Description" name="description" class="w-full text-xl px-4 py-2 border rounded h-24"> 
+        </div>
+        <div class="mb-8 w-[30vw] flex items-center">
+            <input type="checkbox" id="encrypted" name="encrypted" class="mr-2" />
+            <label for="encrypt" class="mr-4 text-white text-xl">Encrypt this file</label>
+            <input type="text" id="passcode" name="passcode" placeholder="Passcode" class="px-4 py-2 text-xl border rounded disabled:opacity-50" disabled />
+        </div>
+        <div class="mb-8 w-[30vw] flex items-center">
+            <input type="checkbox" id="shareable" name="shareable" class="mr-2" />
+            <label for="shareable" class="mr-4 text-white text-xl">Shareable file?</label>
+            <input type="checkbox" id="edit-permissions" name="editPermissions" class="mr-2 text-xl" disabled />
+            <label for="edit-permissions" class="text-white text-xl">Edit permissions</label>
+        </div>
+        <div>
+            <button type="submit" class="w-[13vw] h-[4vw] bg-blue-500 text-white py-2 px-4 rounded-md">Create New Hisaab</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('encrypted').addEventListener('change', function () {
+        document.getElementById('passcode').disabled = !this.checked;
+    });
+
+    document.getElementById('shareable').addEventListener('change', function () {
+        document.getElementById('edit-permissions').disabled = !this.checked;
+    });
+</script>
+
+<%- include('./partials/footer.ejs') %>

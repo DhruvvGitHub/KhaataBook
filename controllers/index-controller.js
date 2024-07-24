@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const userModel = require('../models/user-model');
+const { isLoggedIn } = require('../middlewares/isLoggedIn');
+const hisaabModel = require('../models/hisaab-model');
 
 
 module.exports.homePageController = (req, res) => {
@@ -74,6 +76,19 @@ module.exports.registerController = async (req, res) => {
     
 };
 
-module.exports.profilePageController = (req, res) => {
-    res.render("profile")
+module.exports.profilePageController = async (req, res) => {
+    const userId = req.user.id;
+
+    const user = await userModel.findOne({ _id: userId })
+
+    const hisaabs = await hisaabModel.find({
+        user: user._id
+    })
+
+    res.render("profile", { isLoggedIn: true, user, hisaabs })
+}
+
+module.exports.logoutController = (req, res) => {
+    res.clearCookie("token")
+    return res.redirect("/")
 }
