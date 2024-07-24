@@ -10,23 +10,23 @@ const hisaabSchema = mongoose.Schema({
         required: [true, "Title is required"],
         trim: true 
     },
-    data: {
+    description: {
         type: String,
         required: [true, "Data is required"],
         trim: true
     },
-    passcode: {
-        type: String,
-    },
-    editable: {
+    encrypted: {
         type: Boolean,
         default: false
+    },
+    passcode: {
+        type: String,
     },
     shareable: {
         type: Boolean,
         default: false
     },
-    isEncrypted: {
+    editable: {
         type: Boolean,
         default: false
     }

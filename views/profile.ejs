@@ -1,5 +1,17 @@
 <%- include('./partials/header.ejs') %>
 
+<div id="mainbox" class="w-[100vw] min-h-[90vh] bg-zinc-800 py-4 px-10">
+    <h1 class="text-white text-4xl font-medium">Welcome, <%= user.username %>👋🏻</h1>
+    <h5 class="text-zinc-600 text-xl mt-2">Showing all hisaabs till now</h5>
 
+    <div id="hisaabsDiv" class="w-[100vw] flex flex-wrap gap-4 mt-8 bg-zinc-800">
+        <% hisaabs.forEach(function(hisaab) { %>
+            <div id="hisaab" class="w-[30vw] h-[20vw] rounded-md bg-zinc-500">
+                <h1><%= hisaab.title %></h1>
+                <h3><%= hisaab.description %></h3>
+            </div>
+        <% }) %>
+    </div>
+</div>
 
 <%- include('./partials/footer.ejs') %>
