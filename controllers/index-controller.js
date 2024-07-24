@@ -1,12 +1,36 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const UserModel = require('../models/user-model');
 const userModel = require('../models/user-model');
 
 
 module.exports.homePageController = (req, res) => {
-    let message = req.flash("error")
-    res.render("index")
+    let error = req.flash("error")
+    res.render("index", { error })
+}
+
+module.exports.homeLoginController = async (req, res) => {
+    let { username, password } = req.body
+
+    if(!username || !password) {
+        req.flash("error", "All fields are required")
+    }
+
+    const user = await userModel.findOne({ username })
+
+    if(!user) {
+        req.flash("error", "This username does not exist. Please register")
+        return res.redirect("/")
+    }
+
+    const correctPassword = await bcrypt.compare(password, user.password)
+    if(correctPassword) {
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY)
+        res.cookie("token", token)
+        return res.redirect("/profile")
+    } else {
+        req.flash("error", "Username or password is incorrect")
+        return res.redirect("/")
+    }
 }
 
 module.exports.registerPageController = (req, res) => {
