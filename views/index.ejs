@@ -1,0 +1,21 @@
+<%- include('./partials/header.ejs') %>
+
+<div class="w-full h-[90vh] bg-zinc-800">
+    <div id="formDiv" class="bg-white rounded-md py-10 px-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <h3 class="font-medium text-3xl ml-8">Login</h3>
+        <form autocomplete="off" class="rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+            <input class="border rounded w-[13vw] h-[2.5vw] border-zinc-700 py-2 px-3 text-gray-700 mb-4" id="username" type="text" placeholder="Username">
+            <input class="border rounded w-[13vw] h-[2.5vw] border-zinc-700 py-2 px-3 text-gray-700 leading-tight mb-4" id="password" type="password" placeholder="Password">
+            <button class="bg-blue-500 w-[7vw] text-white py-2 px-4 rounded" type="button">
+                Sign In
+            </button>
+            <div class="mt-4 text-center">
+                <a class="text-md text-blue-500" href="/register">
+                    Don't have an account? Register
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>
