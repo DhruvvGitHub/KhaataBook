@@ -4,11 +4,36 @@
     <h1 class="text-white text-4xl font-medium">Welcome, <%= user.username %>👋🏻</h1>
     <h5 class="text-zinc-600 text-xl mt-2">Showing all hisaabs till now</h5>
 
-    <div id="hisaabsDiv" class="w-[100vw] flex flex-wrap gap-4 mt-8 bg-zinc-800">
+    <div id="hisaabsDiv" class="w-[95vw] flex flex-wrap gap-4 mt-8 bg-zinc-800">
+        <% function formatDate(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${day}-${month}-${year}`;
+        } %>
+        
         <% hisaabs.forEach(function(hisaab) { %>
-            <div id="hisaab" class="w-[30vw] h-[20vw] rounded-md bg-zinc-500">
-                <h1><%= hisaab.title %></h1>
-                <h3><%= hisaab.description %></h3>
+            <div id="hisaab" class="w-[30.8vw] h-[12vw] rounded-md bg-zinc-300 flex flex-col gap-4 py-2 px-4">
+                <div id="line-1" class="flex items-center justify-between">
+                    <div id="div-1" class="relative">
+                        <% if(hisaab.encrypted) { %>
+                            <div id="encrypted" class="w-[10vw] h-fit bg-blue-400 p-2 rounded-md text-lg flex items-center justify-center"><i class="ri-lock-2-line mr-3"></i> Encrypted</div>
+                        <% } else { %>
+                            <div id="available" class="w-[10vw] h-fit bg-green-400 p-2 rounded-md text-lg flex items-center justify-center"><i class="ri-lock-unlock-line mr-3"></i> Available</div>
+                        <% } %>
+                    </div>
+                    <div id="div-2" class="relative">
+                        <% if(hisaab.shareable) { %>
+                            <div id="shareable" class="p-2 text-xl"><i class="ri-share-line cursor-pointer"></i></div>
+                        <% } else { %>
+                            <div id="notShareable" class="p-2 text-xl"><i class="ri-eye-off-line"></i></div>
+                        <% } %>
+                    </div>
+                    <h5 class="text-md text-zinc-500">Created at <%= formatDate(new Date(hisaab.createdAt)) %></h5>
+                </div>
+                <h1 class="font-medium text-2xl"><%= hisaab.title %></h1>
+                <a href="/hisaab/view/<%= hisaab._id %>" class="text-md text-zinc-500">view hisaab</a>
             </div>
         <% }) %>
     </div>

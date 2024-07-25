@@ -1,3 +1,4 @@
+const { isLoggedIn } = require('../middlewares/isLoggedIn')
 const hisaabModel = require('../models/hisaab-model')
 
 module.exports.createPageController = async (req, res) => {
@@ -29,4 +30,41 @@ module.exports.createHisaabController = async (req, res) => {
 
     await hisaab.save()
     return res.redirect("/profile")
+}
+
+module.exports.viewHisaabController = async (req, res) => {
+    const id = req.params.id
+
+    const hisaab = await hisaabModel.findOne({ _id: id })
+
+    return res.render("viewHisaab", { isLoggedIn: true, hisaab })
+}
+
+module.exports.editHisaabPageController = async (req, res) => {
+    const id = req.params.id
+
+    const hisaab = await hisaabModel.findOne({ _id: id })
+
+    res.render("editHisaab", {isLoggedIn: true, hisaab})
+}
+
+module.exports.editHisaabController = (req, res) => {
+
+}
+
+
+module.exports.deleteHisaabController = async (req, res) => {
+    const id = req.params.id
+
+    const hisaab = hisaabModel.findOne({ 
+        _id: id,
+        user: req.user.id
+     })
+
+     if(!hisaab) {
+        return res.redirect("/profile")
+     }
+
+     await hisaabModel.deleteOne({ _id: id })
+     return res.redirect("/profile")
 }
