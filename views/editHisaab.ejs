@@ -1,0 +1,14 @@
+<%- include('./partials/header.ejs') %>
+
+<div id="mainbox" class="w-[100vw] h-[90vh] bg-zinc-800 flex pt-20 justify-center">
+    <div id="formDiv" class="w-fit h-fit py-10 px-5 bg-zinc-300">
+        <h1 class="text-black text-2xl text-center font-medium">Edit Hisaab</h1>
+        <form action="/edit" method="post" autocomplete="off" class="flex flex-col gap-4">
+            <input type="text" name="title" value="<%= hisaab.title %>">
+            <input type="text" name="description" value="<%= hisaab.description %>">
+        </form>
+    </div>
+
+</div>
+
+<%- include('./partials/footer.ejs') %>

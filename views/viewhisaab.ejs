@@ -1,0 +1,32 @@
+<%- include('./partials/header.ejs') %>
+
+<div id="mainbox" class="w-[100vw] h-[90vh] pt-4 px-10 bg-zinc-800">
+    <div id="hisaab" class="w-fit h-fit p-4 bg-zinc-300 rounded rounded-md">
+        <div id="line-1" class="flex items-center gap-4">
+            <div id="div-1" class="relative">
+                <% if(hisaab.encrypted) { %>
+                    <div id="encrypted" class="w-[10vw] h-fit bg-blue-400 p-2 rounded-md text-lg flex items-center justify-center"><i class="ri-lock-2-line mr-3"></i> Encrypted</div>
+                <% } else { %>
+                    <div id="available" class="w-[10vw] h-fit bg-green-400 p-2 rounded-md text-lg flex items-center justify-center"><i class="ri-lock-unlock-line mr-3"></i> Available</div>
+                <% } %>
+            </div>
+            <div id="div-2" class="relative">
+                <% if(hisaab.shareable) { %>
+                    <div id="shareable" class="p-2 text-xl flex items-center gap-2 cursor-pointer">
+                        <i class="ri-share-line cursor-pointer"></i>
+                        <h3 class="text-lg text-zinc-500">Share as a link</h3>
+                    </div>
+                <% } else { %>
+                    <div id="notShareable" class="p-2 text-xl"><i class="ri-eye-off-line"></i></div>
+                <% } %>
+            </div>
+            <a href="/hisaab/edit/<%= hisaab._id %>" id="edit" class="bg-yellow-500 rounded-md p-2 px-5"><h3>Edit</h3></a>
+            <a href="/hisaab/delete/<%= hisaab._id %>" id="delete" class="bg-red-600 rounded-md p-2 px-5"><h3>Delete</h3></a>
+
+        </div>
+        <h1 class="text-black text-2xl font-medium mt-4"><%= hisaab.title %></h1>
+        <h3 class="text-black text-lg"><%= hisaab.description %></h3>
+    </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>
