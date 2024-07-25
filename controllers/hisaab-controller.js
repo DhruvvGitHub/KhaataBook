@@ -48,8 +48,27 @@ module.exports.editHisaabPageController = async (req, res) => {
     res.render("editHisaab", {isLoggedIn: true, hisaab})
 }
 
-module.exports.editHisaabController = (req, res) => {
+module.exports.editHisaabController = async (req, res) => {
+    const id = req.params.id
 
+    const hisaab = await hisaabModel.findOne({
+        _id: id
+    })
+
+    if(!hisaab) {
+        return res.redirect("/profile")
+    }
+
+    hisaab.title = req.body.title
+    hisaab.description = req.body.description
+    hisaab.encrypted = req.body.encrypted == 'on' ? true : false;
+    hisaab.passcode = req.body.passcode
+    hisaab.editable = req.body.editPermissions == 'on' ? true : false;
+    hisaab.shareable = req.body.shareable == 'on' ? true : false;
+
+    await hisaab.save();
+
+    return res.redirect("/profile")
 }
 
 

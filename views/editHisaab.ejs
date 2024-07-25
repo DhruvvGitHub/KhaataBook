@@ -1,11 +1,23 @@
 <%- include('./partials/header.ejs') %>
 
 <div id="mainbox" class="w-[100vw] h-[90vh] bg-zinc-800 flex pt-20 justify-center">
-    <div id="formDiv" class="w-fit h-fit py-10 px-5 bg-zinc-300">
-        <h1 class="text-black text-2xl text-center font-medium">Edit Hisaab</h1>
-        <form action="/edit" method="post" autocomplete="off" class="flex flex-col gap-4">
-            <input type="text" name="title" value="<%= hisaab.title %>">
-            <input type="text" name="description" value="<%= hisaab.description %>">
+    <div id="formDiv" class="w-fit h-fit py-10 px-28 bg-zinc-300">
+        <h1 class="text-black text-3xl text-center font-medium mb-5">Edit Hisaab</h1>
+        <form action="/hisaab/edit/<%= hisaab._id %>" method="post" autocomplete="off" class="flex flex-col gap-4">
+            <input type="text" name="title" value="<%= hisaab.title %>" class="px-4 py-2 text-xl border rounded">
+            <input type="text" name="description" value="<%= hisaab.description %>" class="px-4 py-2 text-xl border rounded">
+            <div class="mb-8 w-[30vw] flex items-center">
+                <input <% if(hisaab.encrypted) { %> checked <% } %> type="checkbox" id="encrypted" name="encrypted" class="mr-2" />
+                <label for="encrypt" class="mr-4 text-black text-xl">Encrypt this file</label>
+                <input value="<%= hisaab.passcode %>" type="text" id="passcode" name="passcode" placeholder="Passcode" class="px-4 py-2 text-xl border rounded"/>
+            </div>
+            <div class="mb-8 w-[30vw] flex items-center">
+                <input <% if(hisaab.shareable) { %> checked <% } %> type="checkbox" id="shareable" name="shareable" class="mr-2" />
+                <label for="shareable" class="mr-4 text-black text-xl">Shareable file?</label>
+                <input <% if(hisaab.editable) { %> checked <% } %> type="checkbox" id="edit-permissions" name="editPermissions" class="mr-2 text-xl"/>
+                <label for="edit-permissions" class="text-black text-xl">Edit permissions</label>
+            </div>
+            <button type="submit" class="w-fit bg-blue-500 text-white py-5 px-7 rounded-md">Save changes</button>
         </form>
     </div>
 
