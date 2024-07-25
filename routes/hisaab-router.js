@@ -16,7 +16,7 @@ router.post("/create", isLoggedIn, createHisaabController);
 router.get("/view/:id", isLoggedIn, viewHisaabController);
 
 router.get("/edit/:id", isLoggedIn, editHisaabPageController);
-router.post("/edit", isLoggedIn, editHisaabController)
+router.post("/edit/:id", isLoggedIn, editHisaabController);
 
 router.get("/delete/:id", isLoggedIn, deleteHisaabController)
 
