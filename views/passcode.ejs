@@ -1,0 +1,18 @@
+<%- include('./partials/header.ejs') %>
+
+<div id="mainbox" class="w-[100vw] h-[90vh] bg-zinc-800 text-white flex flex-col items-center justify-center">
+    <% if (error && error.length > 0) { %>
+        <div class="text-red-500 text-lg ml-8">
+            <% error.forEach(function(err) { %>
+                <p><%= err %></p>
+            <% }) %>
+        </div>
+    <% } %>
+    <h1>Enter Passcode</h1>
+    <form action="/hisaab/verify/<%= hisaab._id %>" method="post">
+        <input type="text" name="passcode" placeholder="Passcode">
+        <button type="submit" class="bg-blue">Submit</button>
+    </form>
+</div>
+
+<%- include('./partials/footer.ejs') %>
