@@ -77,13 +77,22 @@ module.exports.registerController = async (req, res) => {
 };
 
 module.exports.profilePageController = async (req, res) => {
+
+    const startDate = req.query.startDate
+    const endDate = req.query.endDate
+    const order = req.query.byDate ? Number(req.query.byDate) : -1
+
     const userId = req.user.id;
 
     const user = await userModel.findOne({ _id: userId })
 
     const hisaabs = await hisaabModel.find({
-        user: user._id
-    })
+        user: user._id,
+        createdAt: {
+            $gte: startDate ? new Date(startDate) : new Date(0),
+            $lt: endDate ? new Date(endDate) : new Date()
+        }
+    }).sort({ createdAt: order }).exec()
 
     res.render("profile", { isLoggedIn: true, user, hisaabs })
 }

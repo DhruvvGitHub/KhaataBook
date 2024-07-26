@@ -10,9 +10,10 @@
                     <div id="available" class="w-[10vw] h-fit bg-green-400 p-2 rounded-md text-lg flex items-center justify-center"><i class="ri-lock-unlock-line mr-3"></i> Available</div>
                 <% } %>
             </div>
+            <div id="linkCopied" class="py-4 px-8 bg-blue-400 rounded-md absolute top-[5%] left-[50%] opacity-0">Link Copied</div>
             <div id="div-2" class="relative">
                 <% if(hisaab.shareable) { %>
-                    <div id="shareable" class="p-2 text-xl flex items-center gap-2 cursor-pointer">
+                    <div id="shareable" class="copyUrl p-2 text-xl flex items-center gap-2 cursor-pointer">
                         <i class="ri-share-line cursor-pointer"></i>
                         <h3 class="text-lg text-zinc-500">Share as a link</h3>
                     </div>
@@ -28,5 +29,21 @@
         <h3 class="text-black text-lg"><%= hisaab.description %></h3>
     </div>
 </div>
+
+<script>
+    const shareBtn = document.querySelector(".copyUrl");
+    const linkCopiedDiv = document.querySelector("#linkCopied");
+
+    shareBtn.addEventListener("click", () => {
+        linkCopiedDiv.style.opacity = 1;
+
+        setTimeout(() => {
+            linkCopiedDiv.style.opacity = 0;
+        }, 1300);
+
+        navigator.clipboard.writeText(window.location.href)
+    });
+</script>
+
 
 <%- include('./partials/footer.ejs') %>
