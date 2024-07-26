@@ -37,7 +37,27 @@ module.exports.viewHisaabController = async (req, res) => {
 
     const hisaab = await hisaabModel.findOne({ _id: id })
 
-    return res.render("viewHisaab", { isLoggedIn: true, hisaab })
+    const error = req.flash("error")
+    if (hisaab.encrypted) {
+        res.render("passcode", { isLoggedIn: true, hisaab, error })
+    }
+
+    return res.render("viewHisaab", { isLoggedIn: true, hisaab ,error })
+}
+
+module.exports.viewPasscodeHisaab = async (req, res) => {
+    const id = req.params.id
+
+    const hisaab = await hisaabModel.findOne({
+        _id: id
+    })
+
+    if(hisaab.passcode !== req.body.passcode) {
+        req.flash("error", "Wrong passcode entered")
+        return res.redirect(`/hisaab/view/${id}`);
+    } else {
+        return res.render("viewHisaab", { isLoggedIn: true, hisaab })
+    }
 }
 
 module.exports.editHisaabPageController = async (req, res) => {
